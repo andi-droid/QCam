@@ -1,0 +1,5 @@
+System.NullReferenceException: Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt.
+   bei QCam.FormMain.CameraConnect()
+   bei QCam.FormMain.disposeCameras()
+   bei QCam.FormMain.CameraConnect()
+   bei QCam.FormMain.initCameras()
