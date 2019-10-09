@@ -282,7 +282,7 @@ namespace QCam
 		private int noSingleImages;
 		private int imageDouble;
         private int gainMode;
-		private int shutterMode, shutterOutput, sttOpen, sttClose;
+		private int shutterMode, triggerMode, shutterOutput, sttOpen, sttClose;
 		private int FKVSS, HSS, VSS, ADChannel, VSAmplitude;
 
         private int expLevel = 100; //not implemented
@@ -365,7 +365,7 @@ namespace QCam
 					Console.WriteLine("--> Amp: " + Encoding.ASCII.GetString(name));
 				}
 
-				amp = 0; // 1: Conventional CCD register, 0: Standard EMCCD gain register (default)
+				amp = 1; // 1: Conventional CCD register (default), 0: Standard EMCCD gain register
 				err = _SetOutputAmplifier(amp);
 				ReportError(err, "--> Set Amp");
 				
@@ -406,6 +406,11 @@ namespace QCam
 				err = _SetShutter(0, shutterMode, 0, 0);
 				ReportError(err, "--> Set Shutter");
 
+				Console.WriteLine("--> Setting TriggerMode ...");
+				triggerMode = 7; //set to external exposure
+				err = _SetTriggerMode(triggerMode); 
+				ReportError(err, "--> Set TriggerMode");
+								
 				return 0; 
 			}
         }

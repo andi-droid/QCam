@@ -856,7 +856,7 @@ namespace QCam
             this.settingsToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(340, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(339, 24);
 			this.menuStrip1.TabIndex = 80;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -933,7 +933,7 @@ namespace QCam
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel1.Location = new System.Drawing.Point(0, 24);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(340, 351);
+			this.panel1.Size = new System.Drawing.Size(339, 551);
 			this.panel1.TabIndex = 121;
 			// 
 			// groupBoxEM
@@ -1419,7 +1419,7 @@ namespace QCam
             "ANDOR IXONULTRA"});
 			this.cameraSelectorBox.Location = new System.Drawing.Point(14, 6);
 			this.cameraSelectorBox.Name = "cameraSelectorBox";
-			this.cameraSelectorBox.Size = new System.Drawing.Size(140, 27);
+			this.cameraSelectorBox.Size = new System.Drawing.Size(183, 27);
 			this.cameraSelectorBox.TabIndex = 160;
 			this.cameraSelectorBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
 			// 
@@ -1479,7 +1479,7 @@ namespace QCam
 			// 
 			// textBoxCamera
 			// 
-			this.textBoxCamera.Location = new System.Drawing.Point(160, 6);
+			this.textBoxCamera.Location = new System.Drawing.Point(203, 3);
 			this.textBoxCamera.Name = "textBoxCamera";
 			this.textBoxCamera.Size = new System.Drawing.Size(10, 20);
 			this.textBoxCamera.TabIndex = 120;
@@ -1532,7 +1532,7 @@ namespace QCam
 			// 
 			// labelCamera
 			// 
-			this.labelCamera.Location = new System.Drawing.Point(176, 9);
+			this.labelCamera.Location = new System.Drawing.Point(212, 6);
 			this.labelCamera.Name = "labelCamera";
 			this.labelCamera.Size = new System.Drawing.Size(10, 20);
 			this.labelCamera.TabIndex = 119;
@@ -1741,7 +1741,7 @@ namespace QCam
 			// FormMain
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(340, 375);
+			this.ClientSize = new System.Drawing.Size(339, 575);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.menuStrip1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

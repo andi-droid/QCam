@@ -30,6 +30,7 @@
         {
 			this.settingsPropertyGrid = new System.Windows.Forms.PropertyGrid();
 			this.button1 = new System.Windows.Forms.Button();
+			this.btnSave = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// settingsPropertyGrid
@@ -50,12 +51,22 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
+			// btnSave
+			// 
+			this.btnSave.Location = new System.Drawing.Point(125, 1);
+			this.btnSave.Name = "btnSave";
+			this.btnSave.Size = new System.Drawing.Size(75, 23);
+			this.btnSave.TabIndex = 3;
+			this.btnSave.Text = "save";
+			this.btnSave.UseVisualStyleBackColor = true;
+			// 
 			// Settings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSize = true;
 			this.ClientSize = new System.Drawing.Size(310, 412);
+			this.Controls.Add(this.btnSave);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.settingsPropertyGrid);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -76,5 +87,6 @@
 
         private System.Windows.Forms.PropertyGrid settingsPropertyGrid;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button btnSave;
     }
 }
