@@ -132,7 +132,7 @@ namespace QCam
 						//CameraRefresh();
 
 						ToggleDoubleImage();
-						enableDoubleImage.Checked = true;
+						enableDoubleImage.Checked = false;
 						if (camera.Descr.DoubleImage == 1) Console.WriteLine("\rDoubleImage supported.");
 
 						cameraName = cameraSelectorBox.SelectedItem.ToString();
