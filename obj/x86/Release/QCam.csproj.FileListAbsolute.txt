@@ -24,3 +24,11 @@ C:\Users\LithiumMicroscope\Desktop\QCamA\obj\x86\Release\QCam.FormMain.resources
 C:\Users\LithiumMicroscope\Desktop\QCamA\obj\x86\Release\QCam.Properties.Resources.resources
 C:\Users\LithiumMicroscope\Desktop\QCamA\obj\x86\Release\QCam.Settings.resources
 C:\Users\LithiumMicroscope\Desktop\QCamA\obj\x86\Release\QCam.csproj.GenerateResource.Cache
+C:\Users\akerkman\Desktop\QCamA\QCam\bin\x86\Release\QCam.exe.config
+C:\Users\akerkman\Desktop\QCamA\QCam\bin\x86\Release\QCam.exe
+C:\Users\akerkman\Desktop\QCamA\QCam\obj\x86\Release\QCam.csprojAssemblyReference.cache
+C:\Users\akerkman\Desktop\QCamA\QCam\obj\x86\Release\QCam.FormMain.resources
+C:\Users\akerkman\Desktop\QCamA\QCam\obj\x86\Release\QCam.Properties.Resources.resources
+C:\Users\akerkman\Desktop\QCamA\QCam\obj\x86\Release\QCam.Settings.resources
+C:\Users\akerkman\Desktop\QCamA\QCam\obj\x86\Release\QCam.csproj.GenerateResource.cache
+C:\Users\akerkman\Desktop\QCamA\QCam\obj\x86\Release\QCam.exe
