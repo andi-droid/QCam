@@ -1925,16 +1925,6 @@ namespace QCam
 				textBoxSubY.ReadOnly = true;
                 textBoxSubX.Text = "1";
                 textBoxSubY.Text = "1";
-                try
-                {
-                    camera.GetLastError();
-                    camera.Set("BinHorz", Convert.ToUInt16(textBoxSubX.Text), "BinVert", Convert.ToUInt16(textBoxSubY.Text));
-                    if (camera.GetLastError() > 0) throw new Exception("Camera error.");
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Binning could not be reset to (1,1).");
-                }
             }
 		}
 
@@ -2030,35 +2020,17 @@ namespace QCam
 			ToggleEM();
 		}
 
-        #endregion
-
+        
         private void textBoxSubX_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                camera.GetLastError();
-                camera.Set("BinHorz", Convert.ToUInt16(textBoxSubX.Text), "BinVert", Convert.ToUInt16(textBoxSubY.Text));
-                if (camera.GetLastError() > 0) throw new Exception("Camera error.");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Binning could not be set while changing text for X.");
-            }
         }
 
         private void textBoxSubY_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                camera.GetLastError();
-                camera.Set("BinHorz", Convert.ToUInt16(textBoxSubX.Text), "BinVert", Convert.ToUInt16(textBoxSubY.Text));
-                if (camera.GetLastError() > 0) throw new Exception("Camera error.");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Binning could not be set while changing text for Y.");
-            }
         }
+
+        #endregion
+
     }
 }
 
