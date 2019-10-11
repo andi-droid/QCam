@@ -532,7 +532,8 @@ namespace QCam
 				else if (name == "DoubleImageMode")
 				{
 					err = _SetAcquisitionMode(value + 3);	//0 = normal, 1 = doubleImage ==> 3 = Kinetic Series, 4 = FastKineticSeries
-					if (err == SUCCESS) mode = value + 3;
+                    if(value==0) Console.WriteLine("Double image is not activated => Kinetic Series.");
+                    if (err == SUCCESS) mode = value + 3;
 				}
 				else if (name == "Height")
 					height = value;
@@ -621,43 +622,69 @@ namespace QCam
 
 				if (name1 == "BinHorz" && name2 == "BinVert")
 				{
-					if (mode == 3)							//for mode = 4 (FastKinetics) this will be set with _SetFastKinetics (currently during set exposure)
+                    int binx = value1;
+                    int biny = value2;
+                    int binwidth = descr.MaxHorzRes / binx;
+                    int binheight = descr.MaxVertRes / biny;
+
+                    if (mode == 3)							//for mode = 4 (FastKinetics) this will be set with _SetFastKinetics (currently during set exposure)
 					{
-						err = _SetImage(value1, value2, offsetX + 1, width / value1, offsetY + 1, height / value2);
+                        Console.WriteLine("--> setImage ..." + Convert.ToString(binx) + ", " + Convert.ToString(biny)
+                                                             + ", " + Convert.ToString(offsetX + 1) + ", " + Convert.ToString(binwidth)
+                                                             + ", " + Convert.ToString(offsetY + 1) + ", " + Convert.ToString(binheight)
+                                                             + "\n");
+                        err = _SetImage(binx, biny, offsetX + 1, binwidth, offsetY + 1, binheight);
 						ReportError(err, "--> SetImage");
 					}
 					else err = SUCCESS;
 					if (err == SUCCESS)
 					{
-                        if (hbin != value1 || vbin != value2)
+                        if (hbin != binx || vbin != biny)
                         {
-                            hbin = value1;
-                            vbin = value2;
-                            width = descr.MaxHorzRes / value1;
-                            height = descr.MaxVertRes / value2;
+                            hbin = binx;
+                            vbin = biny;
+                            width = binwidth;
+                            height = binheight;
                         }
 					}
 				}
 				else if (name2 == "BinHorz" && name1 == "BinVert")
 				{
-					if (mode == 3)
-					{
-						err = _SetImage(value2, value1, offsetX + 1, descr.MaxHorzRes / value2, offsetY + 1, descr.MaxVertRes / value1);
-						ReportError(err, "--> SetImage");
-					}
-					else err = SUCCESS;
-					if (err == SUCCESS)
-					{
-                        if (hbin != value2 || vbin != value1)
+                    int binx = value2;
+                    int biny = value1;
+                    int binwidth = descr.MaxHorzRes / binx;
+                    int binheight = descr.MaxVertRes / biny;
+
+                    if (mode == 3)                          //for mode = 4 (FastKinetics) this will be set with _SetFastKinetics (currently during set exposure)
+                    {
+                        Console.WriteLine("--> setImage ..." + Convert.ToString(binx) + ", " + Convert.ToString(biny)
+                                                             + ", " + Convert.ToString(offsetX + 1) + ", " + Convert.ToString(binwidth)
+                                                             + ", " + Convert.ToString(offsetY + 1) + ", " + Convert.ToString(binheight)
+                                                             + "\n");
+                        err = _SetImage(binx, biny, offsetX + 1, binwidth, offsetY + 1, binheight);
+                        ReportError(err, "--> SetImage");
+                    }
+                    else err = SUCCESS;
+                    if (err == SUCCESS)
+                    {
+                        if (hbin != binx || vbin != biny)
                         {
-                            hbin = value2;
-                            vbin = value1;
-                            width = descr.MaxHorzRes / value2;
-                            height = descr.MaxVertRes / value1;
+                            hbin = binx;
+                            vbin = biny;
+                            width = binwidth;
+                            height = binheight;
                         }
                     }
-				}
-				else if (name1 == "STTOpen" && name2 == "STTClose")
+                }
+                else if (name1 == "Width" && name2 == "Height")
+                {
+
+                }
+                else if (name1 == "Height" && name2 == "Width")
+                {
+
+                }
+                else if (name1 == "STTOpen" && name2 == "STTClose")
 				{
 					err = _SetShutter(shutterOutput, shutterMode, value2, value1);
 					ReportError(err, "--> ShutterOutput");

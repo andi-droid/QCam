@@ -348,10 +348,11 @@ namespace QCam
 				//Set Offset
 
 				camera.Set("OffsetY", Convert.ToInt32(textBoxYOffset.Text));
+                camera.Set("OffsetX", Convert.ToInt32(textBoxXOffset.Text));
 
-				//Set Gain
+                //Set Gain
 
-				camera.Set("GainMode", gainBox.SelectedIndex);
+                camera.Set("GainMode", gainBox.SelectedIndex);
 
                 // Set new exposure
 
