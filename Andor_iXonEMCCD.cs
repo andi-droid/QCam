@@ -624,44 +624,14 @@ namespace QCam
 				{
                     int binx = value1;
                     int biny = value2;
-                    int binwidth = descr.MaxHorzRes / binx;
-                    int binheight = descr.MaxVertRes / biny;
-
-                    if (mode == 3)							//for mode = 4 (FastKinetics) this will be set with _SetFastKinetics (currently during set exposure)
-					{
-                        Console.WriteLine("--> setImage ..." + Convert.ToString(binx) + ", " + Convert.ToString(biny)
-                                                             + ", " + Convert.ToString(offsetX + 1) + ", " + Convert.ToString(binwidth)
-                                                             + ", " + Convert.ToString(offsetY + 1) + ", " + Convert.ToString(binheight)
-                                                             + "\n");
-                        err = _SetImage(binx, biny, offsetX + 1, binwidth, offsetY + 1, binheight);
-						ReportError(err, "--> SetImage");
-					}
-					else err = SUCCESS;
-					if (err == SUCCESS)
-					{
-                        if (hbin != binx || vbin != biny)
-                        {
-                            hbin = binx;
-                            vbin = biny;
-                            width = binwidth;
-                            height = binheight;
-                        }
-					}
-				}
-				else if (name2 == "BinHorz" && name1 == "BinVert")
-				{
-                    int binx = value2;
-                    int biny = value1;
-                    int binwidth = descr.MaxHorzRes / binx;
-                    int binheight = descr.MaxVertRes / biny;
-
+                    
                     if (mode == 3)                          //for mode = 4 (FastKinetics) this will be set with _SetFastKinetics (currently during set exposure)
                     {
                         Console.WriteLine("--> setImage ..." + Convert.ToString(binx) + ", " + Convert.ToString(biny)
-                                                             + ", " + Convert.ToString(offsetX + 1) + ", " + Convert.ToString(binwidth)
-                                                             + ", " + Convert.ToString(offsetY + 1) + ", " + Convert.ToString(binheight)
+                                                             + ", " + Convert.ToString(offsetX + 1) + ", " + Convert.ToString(width)
+                                                             + ", " + Convert.ToString(offsetY + 1) + ", " + Convert.ToString(height)
                                                              + "\n");
-                        err = _SetImage(binx, biny, offsetX + 1, binwidth, offsetY + 1, binheight);
+                        err = _SetImage(binx, biny, offsetX + 1, width, offsetY + 1, height);
                         ReportError(err, "--> SetImage");
                     }
                     else err = SUCCESS;
@@ -671,8 +641,30 @@ namespace QCam
                         {
                             hbin = binx;
                             vbin = biny;
-                            width = binwidth;
-                            height = binheight;
+                        }
+                    }
+                }
+				else if (name2 == "BinHorz" && name1 == "BinVert")
+				{
+                    int binx = value2;
+                    int biny = value1;
+                    
+                    if (mode == 3)                          //for mode = 4 (FastKinetics) this will be set with _SetFastKinetics (currently during set exposure)
+                    {
+                        Console.WriteLine("--> setImage ..." + Convert.ToString(binx) + ", " + Convert.ToString(biny)
+                                                             + ", " + Convert.ToString(offsetX + 1) + ", " + Convert.ToString(width)
+                                                             + ", " + Convert.ToString(offsetY + 1) + ", " + Convert.ToString(height)
+                                                             + "\n");
+                        err = _SetImage(binx, biny, offsetX + 1, width, offsetY + 1, height);
+                        ReportError(err, "--> SetImage");
+                    }
+                    else err = SUCCESS;
+                    if (err == SUCCESS)
+                    {
+                        if (hbin != binx || vbin != biny)
+                        {
+                            hbin = binx;
+                            vbin = biny;
                         }
                     }
                 }
