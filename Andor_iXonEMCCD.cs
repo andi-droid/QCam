@@ -50,7 +50,11 @@ namespace QCam
 		   ExactSpelling = false, CallingConvention = CallingConvention.StdCall)]
 		private static extern uint _SetImage(int hbin, int vbin, int hstart, int hend, int vstart, int vend);
 
-		[DllImport("atmcd32d.dll", EntryPoint = "GetNumberPreAmpGains",
+        [DllImport("atmcd32d.dll", EntryPoint = "GetSizeOfCircularBuffer",
+        ExactSpelling = false, CallingConvention = CallingConvention.StdCall)]
+        private static extern uint _GetSizeOfCircularBuffer(ref int noBuffer);
+
+        [DllImport("atmcd32d.dll", EntryPoint = "GetNumberPreAmpGains",
 		   ExactSpelling = false, CallingConvention = CallingConvention.StdCall)]
 		private static extern uint _GetNumberPreAmpGains(ref int noGains);
 
@@ -628,6 +632,7 @@ namespace QCam
 				{
                     int binx = value1;
                     int biny = value2;
+                    int possnum = 0;
                     
                     if (mode == 3)                          //for mode = 4 (FastKinetics) this will be set with _SetFastKinetics (currently during set exposure)
                     {
@@ -637,6 +642,10 @@ namespace QCam
                                                              + "\n");
                         err = _SetImage(binx, biny, offsetX + 1, width, offsetY + 1, height);
                         ReportError(err, "--> SetImage");
+
+                        err = _GetSizeOfCircularBuffer(ref possnum);
+                        ReportError(err, "--> Error: NumberPossibleImages in Buffer:" + possnum.ToString());
+                        Console.WriteLine("--> NumberPossibleImages in Buffer:" + possnum.ToString());
                     }
                     else err = SUCCESS;
                     if (err == SUCCESS)
@@ -652,7 +661,8 @@ namespace QCam
 				{
                     int binx = value2;
                     int biny = value1;
-                    
+                    int possnum = 0;
+
                     if (mode == 3)                          //for mode = 4 (FastKinetics) this will be set with _SetFastKinetics (currently during set exposure)
                     {
                         Console.WriteLine("--> setImage ..." + Convert.ToString(binx) + ", " + Convert.ToString(biny)
@@ -661,6 +671,10 @@ namespace QCam
                                                              + "\n");
                         err = _SetImage(binx, biny, offsetX + 1, width, offsetY + 1, height);
                         ReportError(err, "--> SetImage");
+
+                        err = _GetSizeOfCircularBuffer(ref possnum);
+                        ReportError(err, "--> Error: NumberPossibleImages in Buffer:" + possnum.ToString());
+                        Console.WriteLine("--> NumberPossibleImages in Buffer:" + possnum.ToString());
                     }
                     else err = SUCCESS;
                     if (err == SUCCESS)
@@ -931,9 +945,8 @@ namespace QCam
 				int first = 0, last = 0;
 				err = _GetNumberAvailableImages(ref first, ref last);
 				ReportError(err, "--> NumberAvailableImages (index first:" + Convert.ToString(first) + " index last:" + Convert.ToString(last) + ")");
-                Console.WriteLine("--> first ..." + Convert.ToString(first) + "\n");
-                Console.WriteLine("--> last ..." + Convert.ToString(last) + "\n");
 
+                
                 if (img == noInSeries)
 				{
 					ushort* p = ((ushort*)(image_buf) + (img - 1) * 2 * width * height);
