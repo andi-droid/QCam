@@ -946,23 +946,25 @@ namespace QCam
 				err = _GetNumberAvailableImages(ref first, ref last);
 				ReportError(err, "--> NumberAvailableImages (index first:" + Convert.ToString(first) + " index last:" + Convert.ToString(last) + ")");
 
+                int himlength = descr.MaxHorzRes / hbin;
+                int vimlength = descr.MaxVertRes / vbin;
                 
                 if (img == noInSeries)
 				{
-					ushort* p = ((ushort*)(image_buf) + (img - 1) * 2 * width * height);
+					ushort* p = ((ushort*)(image_buf) + (img - 1) * 2 * himlength * vimlength);
                     // create pointer at last two-pic-block, buffer[noInSeries*imagesize],
                     //... Mind the pointer arithmetics automatically multiplies with the stride of ushort 
                     //i.e. 16bit/2byte, so after casting image_buf as ushort, noInSeries*imagesize*2 would be wrong
                     Console.WriteLine("--> image_buf ..."+Convert.ToString(image_buf)+"\n");
-                    Console.WriteLine("--> width ..." + Convert.ToString(width) + "\n");
-                    Console.WriteLine("--> height ..." + Convert.ToString(height) + "\n");
+                    Console.WriteLine("--> width ..." + Convert.ToString(himlength) + "\n");
+                    Console.WriteLine("--> height ..." + Convert.ToString(vimlength) + "\n");
                     Console.WriteLine("--> noSingleImages ..." + Convert.ToString(noSingleImages) + "\n");
                     Console.WriteLine("--> imageDouble ..." + Convert.ToString(imageDouble) + "\n");
-                    err = _GetAcquiredData16(p, (uint)(noSingleImages * imageDouble * width * height));
+                    err = _GetAcquiredData16(p, (uint)(noSingleImages * imageDouble * himlength * vimlength));
 					ReportError(err, "--> Transfering Image (" + Convert.ToString(img) + ")");
 				}
 
-				return ((ushort*)(image_buf) + (img - 1) * imageDouble * width * height);	//Return in two chunks; image 1 &2, image 3 & 4
+				return ((ushort*)(image_buf) + (img - 1) * imageDouble * himlength * vimlength);	//Return in two chunks; image 1 &2, image 3 & 4
 			}
         }
 
