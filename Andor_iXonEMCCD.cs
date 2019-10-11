@@ -623,29 +623,39 @@ namespace QCam
 				{
 					if (mode == 3)							//for mode = 4 (FastKinetics) this will be set with _SetFastKinetics (currently during set exposure)
 					{
-						err = _SetImage(value1, value2, offsetX + 1, width, offsetY + 1, height);
+						err = _SetImage(value1, value2, offsetX + 1, width / value1, offsetY + 1, height / value2);
 						ReportError(err, "--> SetImage");
 					}
 					else err = SUCCESS;
 					if (err == SUCCESS)
 					{
-						hbin = value1;
-						vbin = value2; 
+                        if (hbin != value1 || vbin != value2)
+                        {
+                            hbin = value1;
+                            vbin = value2;
+                            width = descr.MaxHorzRes / value1;
+                            height = descr.MaxVertRes / value2;
+                        }
 					}
 				}
 				else if (name2 == "BinHorz" && name1 == "BinVert")
 				{
 					if (mode == 3)
 					{
-						err = _SetImage(value2, value1, offsetX + 1, width, offsetY + 1, height);
+						err = _SetImage(value2, value1, offsetX + 1, descr.MaxHorzRes / value2, offsetY + 1, descr.MaxVertRes / value1);
 						ReportError(err, "--> SetImage");
 					}
 					else err = SUCCESS;
 					if (err == SUCCESS)
 					{
-						hbin = value2;
-						vbin = value1; 
-					}
+                        if (hbin != value2 || vbin != value1)
+                        {
+                            hbin = value2;
+                            vbin = value1;
+                            width = descr.MaxHorzRes / value2;
+                            height = descr.MaxVertRes / value1;
+                        }
+                    }
 				}
 				else if (name1 == "STTOpen" && name2 == "STTClose")
 				{
@@ -901,8 +911,16 @@ namespace QCam
 
 				if (img == noInSeries)
 				{
-					ushort* p = ((ushort*)(image_buf) + (img - 1) * 2 * width * height);	// create pointer at last two-pic-block, buffer[noInSeries*imagesize], ... Mind the pointer arithmetics automatically multiplies with the stride of ushort i.e. 16bit/2byte, so after casting image_buf as ushort, noInSeries*imagesize*2 would be wrong
-					err = _GetAcquiredData16(p, (uint)(noSingleImages * imageDouble * width * height));
+					ushort* p = ((ushort*)(image_buf) + (img - 1) * 2 * width * height);
+                    // create pointer at last two-pic-block, buffer[noInSeries*imagesize],
+                    //... Mind the pointer arithmetics automatically multiplies with the stride of ushort 
+                    //i.e. 16bit/2byte, so after casting image_buf as ushort, noInSeries*imagesize*2 would be wrong
+                    Console.WriteLine("--> image_buf ..."+Convert.ToString(image_buf)+"\n");
+                    Console.WriteLine("--> width ..." + Convert.ToString(width) + "\n");
+                    Console.WriteLine("--> height ..." + Convert.ToString(height) + "\n");
+                    Console.WriteLine("--> noSingleImages ..." + Convert.ToString(noSingleImages) + "\n");
+                    Console.WriteLine("--> imageDouble ..." + Convert.ToString(imageDouble) + "\n");
+                    err = _GetAcquiredData16(p, (uint)(noSingleImages * imageDouble * width * height));
 					ReportError(err, "--> Transfering Image (" + Convert.ToString(img) + ")");
 				}
 
