@@ -194,7 +194,11 @@ namespace QCam
 		   ExactSpelling = false, CallingConvention = CallingConvention.StdCall)]
 		private static extern uint _GetImages16(int first, int last, ushort* buffArray, UInt32 size, ref int validFirst, ref int validLast);
 
-		[DllImport("atmcd32d.dll", EntryPoint = "FreeInternalMemory",
+        [DllImport("atmcd32d.dll", EntryPoint = "GetNumberNewImages",
+        ExactSpelling = false, CallingConvention = CallingConvention.StdCall)]
+        private static extern uint _GetNumberNewImages(ref int validFirst, ref int validLast);
+
+        [DllImport("atmcd32d.dll", EntryPoint = "FreeInternalMemory",
 		   ExactSpelling = false, CallingConvention = CallingConvention.StdCall)]
 		private static extern uint _FreeInternalMemory();
 
@@ -927,8 +931,10 @@ namespace QCam
 				int first = 0, last = 0;
 				err = _GetNumberAvailableImages(ref first, ref last);
 				ReportError(err, "--> NumberAvailableImages (index first:" + Convert.ToString(first) + " index last:" + Convert.ToString(last) + ")");
+                Console.WriteLine("--> first ..." + Convert.ToString(first) + "\n");
+                Console.WriteLine("--> last ..." + Convert.ToString(last) + "\n");
 
-				if (img == noInSeries)
+                if (img == noInSeries)
 				{
 					ushort* p = ((ushort*)(image_buf) + (img - 1) * 2 * width * height);
                     // create pointer at last two-pic-block, buffer[noInSeries*imagesize],
