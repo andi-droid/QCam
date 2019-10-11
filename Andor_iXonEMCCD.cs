@@ -683,6 +683,8 @@ namespace QCam
                         {
                             hbin = binx;
                             vbin = biny;
+                            Console.WriteLine("--> sethbin to:" + hbin.ToString());
+                            Console.WriteLine("--> setvbin to:" + vbin.ToString());
                         }
                     }
                 }
@@ -956,8 +958,10 @@ namespace QCam
                     //... Mind the pointer arithmetics automatically multiplies with the stride of ushort 
                     //i.e. 16bit/2byte, so after casting image_buf as ushort, noInSeries*imagesize*2 would be wrong
                     Console.WriteLine("--> image_buf ..."+Convert.ToString(image_buf)+"\n");
-                    Console.WriteLine("--> width ..." + Convert.ToString(himlength) + "\n");
-                    Console.WriteLine("--> height ..." + Convert.ToString(vimlength) + "\n");
+                    Console.WriteLine("--> hlnegth ..." + Convert.ToString(himlength) + "\n");
+                    Console.WriteLine("--> vlength ..." + Convert.ToString(vimlength) + "\n");
+                    Console.WriteLine("--> hbin ..." + Convert.ToString(himlength) + "\n");
+                    Console.WriteLine("--> vbin ..." + Convert.ToString(vimlength) + "\n");
                     Console.WriteLine("--> noSingleImages ..." + Convert.ToString(noSingleImages) + "\n");
                     Console.WriteLine("--> imageDouble ..." + Convert.ToString(imageDouble) + "\n");
                     err = _GetAcquiredData16(p, (uint)(noSingleImages * imageDouble * himlength * vimlength));
